@@ -1,14 +1,17 @@
 const mongoose = require('mongoose');
 
 
-const creatorSchema = new mongoose.Schema({
+const organizerSchema = new mongoose.Schema({
     name: String,
-    email: String,
+    email: {
+        type:String,
+        unique: false
+    },
     phone: String,
     password: String
 });
 
-module.exports = mongoose.model('Creator', creatorSchema);
+module.exports = mongoose.model('Organizer', organizerSchema);
 
 
 
