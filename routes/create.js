@@ -98,13 +98,13 @@ router.post('/create', (req,res) => {
     console.log("The schedule is: ");
     console.table(schedule);
    
-    schedule.forEach(day => {
-        formated = format(day.date, 'PPPP');
-        console.log(formated);
-        day.meals.forEach(meal => {
-            console.log(meal);
-        })
-    })
+    // schedule.forEach(day => {
+    //     formated = format(day.date, 'PPPP');
+    //     console.log(formated);
+    //     day.meals.forEach(meal => {
+    //         console.log(meal);
+    //     })
+    // })
     // createMealSchedule()
 
     mealSchedule.create({
@@ -113,7 +113,8 @@ router.post('/create', (req,res) => {
     })
     
     
-    res.send("You sent a post from Create")
+    // res.send("You created a schedule, the id is: " + planID);
+    res.redirect(`/schedule/${planID}`);
     
 }); //POST
 
@@ -136,9 +137,12 @@ function createSchedule(dates, meals) {
                 mealName: meal,
                 volunteer: {}
             })
-        })
+        });
+        let formated = format(date, 'E LLL do');
+        console.log(`The dateString for ${date} is ${formated}`);
         schedule.push({
             date: date,
+            dateString: formated,
             meals: mealsForDate
         })        
     });

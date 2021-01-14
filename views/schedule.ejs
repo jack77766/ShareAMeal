@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Meal Schedule</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <h1>ShareA<span class='logo-highlight'>Meal</span></h1>
+        </div>
+        <ul class='nav-menu'>
+            <li class='nav-item'><a href="/">Home</a></li>
+            <li class='nav-item'><a href="/create">Create</a></li>
+            <li class='nav-item'><a href="/find">Join</a></li>
+        </ul>
+    </nav>
+
+<h1 class='schedule-header'>Meal schedule for: <%= meal.recipient.name %></h1>
+
+<% schedule.forEach(day => { %>
+<table class='schedule-table'>
+    <thead>
+        <tr class='schedule-tr'>
+            <th class='schedule-td schedule-date'>
+                <%=day.dateString%>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <% day.meals.forEach(meal => { %>
+            <tr class='schedule-tr'>
+                <td class='schedule-td'><%=meal.mealName %></td>
+                <% if(meal.taken == true) { %>
+                    <td class='schedule-td'><%=meal.volunteer.name%></td>
+                    <td class='schedule-td'><%=meal.volunteer.phone%></td>
+                    <td class='schedule-td'><%=meal.volunteer.mealDescription%></td>
+                <% } else{ %>
+                    <td colspan="3" class='schedule-td'>
+                        <button class='schedule-btn'>Volunteer</button>
+                    </td>
+                <% } %>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+<% }) %>
+
+
+
+</body>
+</html>

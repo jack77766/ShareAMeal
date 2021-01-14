@@ -10,9 +10,14 @@ const mealScheduleSchema = new mongoose.Schema({
             //     enum: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
             // },
             date: Date,
+            dateString: String,
             meals: [
                 {
                     mealName: String,
+                    taken: {
+                        type: Boolean,
+                        default: 'false'
+                    },
                     volunteer: {
                             name: String,
                             phone: Number,

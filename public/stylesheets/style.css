@@ -266,3 +266,58 @@ button:hover {
 .extras-ta:focus {
     outline: none;
 }
+
+
+
+/* ***************************************** */
+            /* SCHEDULE PAGE  */
+/* ***************************************** */
+
+.schedule-header {
+    font-family: var(--font-heading);
+    color: var(--color-highlight);
+    font-size: 2em;
+    font-weight: 400;
+    margin: 1em 0 3em 0;
+}
+
+.schedule-table {
+    font-family: var(--font-main);
+    color: white;
+    width: 80%;
+    margin: 1em auto;
+}
+
+.schedule-day {
+    margin-bottom: 2em;
+    background-color: black;
+}
+
+.schedule-date{
+    padding: .25em;
+    color: var(--color-highlight);
+    justify-self: center;
+    width: 100%;
+}
+
+.schedule-tr{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.schedule-th {
+    padding: 1em;
+}
+
+.schedule-td {
+
+}
+
+.schedule-btn {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    padding: .15em 0;
+
+}
