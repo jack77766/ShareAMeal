@@ -16,18 +16,7 @@ router.get('/create', (req, res) => {
 
 router.post('/create', (req,res) => {
     console.log("In create post request, req.body: ", req.body);
-    const planID = nanoid();
-
-    // const daysOfWeek = {
-    //     monday:    req.body.monday,
-    //     tuesday:   req.body.tuesday,
-    //     wednesday: req.body.wednesday,
-    //     thursday:  req.body.thursday,
-    //     friday:    req.body.friday,
-    //     saturday:  req.body.saturday,
-    //     sunday:    req.body.sunday,
-    // }
-  
+    const planID = nanoid();  
 
     // CREATE MEAL DETAILS DOCUMENT
 
@@ -39,8 +28,8 @@ router.post('/create', (req,res) => {
         if(req.body.thursday  == 'on')  daysOfWeek.push(4);
         if(req.body.friday    == 'on')  daysOfWeek.push(5);
         if(req.body.saturday  == 'on')  daysOfWeek.push(6);
-        
-    console.log("daysOfWeek array is: ", daysOfWeek);
+    
+    // console.log("daysOfWeek array is: ", daysOfWeek);
         
     const meals = [];
         if(req.body.breakfast  == 'on')  meals.push('breakfast');
@@ -49,7 +38,6 @@ router.post('/create', (req,res) => {
         
 
     const mealDetails = new mealDetail({
-
         planID: planID,
         organizer: {
             name:     req.body.organizerName, 
@@ -87,7 +75,6 @@ router.post('/create', (req,res) => {
         console.log("result is: " + result);
     });
 
-
     // CREATE MEALSCHEDULE DOCUMENT
     const datesForSchedule = getDatesForSchedule(
                                     new Date(req.body.startDate), 
@@ -98,83 +85,49 @@ router.post('/create', (req,res) => {
     console.log("The schedule is: ");
     console.table(schedule);
    
-    // schedule.forEach(day => {
-    //     formated = format(day.date, 'PPPP');
-    //     console.log(formated);
-    //     day.meals.forEach(meal => {
-    //         console.log(meal);
-    //     })
-    // })
-    // createMealSchedule()
-
     mealSchedule.create({
         planID: planID,
         schedule: schedule
     })
-    
-    
+
     // res.send("You created a schedule, the id is: " + planID);
-    res.redirect(`/schedule/${planID}`);
-    
+    res.redirect(`/schedule/${planID}`);    
 }); //POST
-
-
-
-
-
-
-
 
 
 
 function createSchedule(dates, meals) {
     let schedule = [];
-
     dates.forEach(date =>  {
-        let mealsForDate = [];
-        meals.forEach(meal =>  {
-            mealsForDate.push({
-                mealName: meal,
-                volunteer: {}
-            })
-        });
         let formated = format(date, 'E LLL do');
-        console.log(`The dateString for ${date} is ${formated}`);
-        schedule.push({
-            date: date,
-            dateString: formated,
-            meals: mealsForDate
-        })        
+        meals.forEach(meal =>  {
+            schedule.push({
+                date: date,
+                dateString: formated,
+                mealName: meal,
+                taken: false,
+                volunteer: {}
+            })        
+        });
+
     });
-
     return schedule;
-
 }
 
 
+
+//RETURNS AN ARRAY OF DATES THAT MATCH THE USERS FILTERS
 function getDatesForSchedule(startDate, endDate, daysOfWeek) {
-    
-    // console.log(`Start date is: ${startDate}, end date is: ${endDate}`)
     
     let datesOfInterval = eachDayOfInterval({
         start: startDate, 
         end:   endDate
     });
-    // console.log("The dates in between are: ", datesOfInterval);
-
+    
     let datesForSchedule = datesOfInterval.filter(day => daysOfWeek.includes(day.getDay()));
-    // let datesForSchedule = datesOfInterval.filter(day => {
-    //     let formated = format(day, 'PPPP');
-    //     console.log("The day is: " + formated + " which is #: ", day.getDay());
-    //     let isIncluded = daysOfWeek.includes(day.getDay());
-    //     console.log("The day is included: ", isIncluded);
-    //     return isIncluded;
-    // });
-
     // console.log("The days for the schedule are: ", datesForSchedule);
 
     return datesForSchedule;
-
 }
 
 

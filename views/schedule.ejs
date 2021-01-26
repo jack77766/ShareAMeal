@@ -19,37 +19,84 @@
         </ul>
     </nav>
 
-<h1 class='schedule-header'>Meal schedule for: <%= meal.recipient.name %></h1>
 
-<% schedule.forEach(day => { %>
-<table class='schedule-table'>
-    <thead>
-        <tr class='schedule-tr'>
-            <th class='schedule-td schedule-date'>
-                <%=day.dateString%>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <% day.meals.forEach(meal => { %>
+<section class='schedule-section' id="scheduleSection" data-schedule_id= <%=planID%> >
+
+    
+    <h1 class='schedule-header'>Meal schedule for: <%= meal.recipient.name %></h1>
+    
+    <table class='schedule-table'>
+        <thead>
             <tr class='schedule-tr'>
-                <td class='schedule-td'><%=meal.mealName %></td>
-                <% if(meal.taken == true) { %>
-                    <td class='schedule-td'><%=meal.volunteer.name%></td>
-                    <td class='schedule-td'><%=meal.volunteer.phone%></td>
-                    <td class='schedule-td'><%=meal.volunteer.mealDescription%></td>
-                <% } else{ %>
-                    <td colspan="3" class='schedule-td'>
-                        <button class='schedule-btn'>Volunteer</button>
-                    </td>
-                <% } %>
+                <!-- <th>
+                    <td>Date</td>
+                    <td>Name</td>
+                    <td>Phone</td>
+                    <td>Description</td>
+                </th> -->
             </tr>
-        <% }) %>
-    </tbody>
-</table>
-<% }) %>
+        </thead>
+        <tbody>
+            <% schedule.forEach((meal, index) => { %>
+                <tr class='schedule-tr'>
+                    <td class='schedule-td justify-left'>
+                        <span class ='schedule-date' ><%=meal.dateString%></span> | <%=meal.mealName %>
+                    </td>
+                    <!-- <td class='schedule-td'><%=meal.mealName %></td> -->
+                    <td class='schedule-td' id='vname-<%=index%>'><%=meal.volunteer.name%></td>
+                    <td class='schedule-td' id='vphone-<%=index%>'><%=meal.volunteer.phone%></td>
+                    <td class='schedule-td' id='vmeal-<%=index%>'><%=meal.volunteer.mealDesc%></td>
+                    <% if(meal.taken == true) { %>
+                        <td class='schedule-td'>
+                            <button class='schedule-btn hide' id='volunteerBtn-<%=index%>'
+                            data-meal_id='<%= meal._id %>'>Volunteer</button>
+            
+                            <button class='schedule-btn' id='removeBtn-<%=index%>'
+                                    data-meal_id='<%= meal._id %>'>Remove</button>
+                        </td>
+                    <% } else{ %>
+                        <td class='schedule-td'>
+                            <button class='schedule-btn' id='volunteerBtn-<%=index%>'
+                            data-meal_id='<%= meal._id %>'>Volunteer</button>
+            
+                            <button class='schedule-btn hide' id='removeBtn-<%=index%>'
+                                    data-meal_id='<%= meal._id %>'>Remove</button>
+                        </td>
+                    <% } %>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+    
+    <div class="volunteer-div hide" id='volunteerDiv'>
+        <form action="./<%= meal.planID %>" method="POST">
+            <input type="hidden" name="mealID" id='mealID'>
+            <!-- <input type="hidden" name="dayID" id='dayID'> -->
+            <h5 class='volunteer-header'>Please enter your details</h5>
+            <div class="input-group">
+                <label for="name">name:</label>
+                <input type="text" name="name" id="name">
+            </div>
+            <div class="input-group">
+                <label for="phone">phone#:</label>
+                <input type="text" name="phone" id="phone">
+            </div>
+            <div class="input-group">
+                <label for="mealDesc">Meal</label>
+                <input type="text" name="mealDesc" id="mealDesc" 
+                        placeholder="What will you be bringing?">
+            </div>
+            <button type="submit">Submit</button>
+        
+        </form>
+    </div>
+    
+    
+    <div class="blur hide" id="blur"></div>
+    
+</section>
 
 
-
+<script src="/scripts/schedule.js"></script>
 </body>
 </html>

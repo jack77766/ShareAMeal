@@ -19,13 +19,6 @@ organizerSubmitButton.addEventListener('click', (e)=> {
     organizerDiv.classList.add('hide');
     organizerDiv.classList.remove('panel');
     recipientDiv.classList.remove('hide');
-
-    // console.log("organizer Submit Button Clicked")
-    // console.log('Name: '     + document.querySelector('#organizerName').value);
-    // console.log('E-mail: '   + document.querySelector('#organizerEmail').value);
-    // console.log('Phone: '    + document.querySelector('#organizerPhone').value);
-    // console.log('Password: ' + document.querySelector('#organizerPassword').value);
-
 })
 
 recipientSubmitButton.addEventListener('click', (e)=> {
@@ -57,7 +50,7 @@ extrasSubmitButton.addEventListener('click', (e)=> {
 })
 
 mealForm.addEventListener('submit', (e) => {
-    alert("Form submission attempt");
+    // alert("Form submission attempt");
     e.preventDefault();
     if(!extrasDiv.classList.contains('hide')) {
         console.log("Submission from withing extras")
