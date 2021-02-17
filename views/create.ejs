@@ -1,26 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create a Meal Schedule</title>
-    <link rel="stylesheet" href="./stylesheets/style.css">
-</head>
-<body>
-
-    <nav>
-        <div class="logo">
-            <h1>ShareA<span class='logo-highlight'>Meal</span></h1>
-        </div>
-        <ul class='nav-menu'>
-            <li class='nav-item'><a href="./">Home</a></li>
-            <li class='nav-item'><a href="./create">Create</a></li>
-            <li class='nav-item'><a href="./find">Join</a></li>
-        </ul>
-    </nav>
+<%- include ("./partials/header.ejs") %>
     
-    <form action="./create" method="POST" id='mealForm' autocomplete='off'>
-    <div class="organizer panel" id="organizerDiv">
+    <form action="./create" method="POST" class='meal-form' id='mealForm' >
+    <div class="panel" id="organizerDiv">
         <h1 class=panel-title>Organizer Info</h1>
         <h4 class='panel-desc'>Enter your details to login and manage this meal plan.</h4>
         <div class="input-group">
@@ -30,24 +11,23 @@
         </div>
         <div class="input-group">
             <label for="email">Email</label>
-            <input type="email" name="organizerEmail" id='organizerEmail'
+            <input type="email" name="organizerEmail" id='organizerEmail' 
                                 placeholder="To what e-mail can we send your schedule details">
         </div>
         <div class="input-group">
             <label for="phone">Phone#</label>
-            <input type="tel" name="organizerPhone" id='organizerPhone'
+            <input type="tel" name="organizerPhone" id='organizerPhone' 
                     placeholder="Would you like your phone number registered">
         </div>
         <div class="input-group">
             <label for="Password">Password</label>
-            <input type="password" name="organizerPassword" id='organizerPassword'
+            <input type="password" name="organizerPassword" id='organizerPassword' 
                     placeholder="Please create a password to log into your schedule">
         </div>
             <button type='button' id='organizerSubmitButton'>Next</button>
-
     </div>
-
-    <div class="recipient panel hide" id="recipientDiv">
+ 
+    <div class="hide panel " id="recipientDiv">
         <h1 class=panel-title>Meal Recipient Info</h1>
         <h4 class='panel-desc'>Who will be receiving these meals? </h4>
         <div class="input-group">
@@ -68,7 +48,7 @@
             <button type='button' id='recipientSubmitButton'>Next</button>
     </div>
 
-    <div class="address panel hide" id='addressDiv'>
+    <div class="panel hide" id='addressDiv'>
         <h1 class='panel-title'>Recipients Address</h1>
         <h4 class='panel-desc'>Where should the meals be delivered?</h4>
         <div class="input-group">
@@ -89,7 +69,7 @@
         <button type='button' id=addressSubmitButton>Next</button>
     </div>
 
-    <div class="schedule panel hide" id='scheduleDiv'>
+    <div class="panel hide" id='scheduleDiv'>
         <h1 class="panel-title">Lets set some details for your schedule</h1>
         <div class="panel-sub-group">
             <h4 class='panel-desc'>For what dates are the meals needed</h4>
@@ -154,7 +134,7 @@
 
     </div>
 
-    <div class="extras panel hide" id='extrasDiv'>
+    <div class="panel hide" id='extrasDiv'>
         <h1 class="panel-title">Extras</h1>
         <h4 class="panel-desc">Here you can give others so more information</h4>
         <div class="input-group">
@@ -168,7 +148,7 @@
                     placeholder="Any food preferences others should know about">
         </div>
         <h4 class='panel-desc'>Notes</h4>
-        <textarea class='extras-ta' name="extraNotes" id="extraNotes" cols="70" rows="15"
+        <textarea class='extras-ta' name="notes" id="notes" cols="70" rows="15"
             placeholder='Here you can write any other information you would like participants to know about'></textarea>
 
         <button type="submit" id="extrasSubmitButton">Create!</button>
@@ -176,5 +156,6 @@
     </form>
 
 <script src="scripts/create.js"></script>
-</body>
-</html>
+
+
+<%- include ("./partials/footer.ejs") %>

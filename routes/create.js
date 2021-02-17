@@ -10,7 +10,8 @@ const nanoid = customAlphabet(alphabet, 10);
 
 
 router.get('/create', (req, res) => {
-    res.sendFile('/public/create.html', {root: './'});
+    // res.sendFile('/public/create.html', {root: './'});
+    res.render('create');
 });
 
 
@@ -62,8 +63,8 @@ router.post('/create', (req,res) => {
             meals: meals
         },
         extras: {
-            allergies:   req.body.allergies.split(" "),
-            preferences: req.body.preferences.split(" "),
+            allergies:   req.body.allergies,
+            preferences: req.body.preferences,
             notes:       req.body.notes
         }
 

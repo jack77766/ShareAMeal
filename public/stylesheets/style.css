@@ -14,30 +14,46 @@
     --gradient: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(0,35,255,1) 0%, rgba(238,244,245,1) 100%);
 }
 
-.hide {
-    visibility: hidden; 
+div.hide {
     display: none;  
+}
+
+button.hide{
+    display:none;
 }
 
 
 body {
-    /* position: relative; */
     background-color: var(--color-main-blue);
     text-align: center;
-    min-width: 100vw;
-    min-height: 100vh;
 }
-
+/* 
 .schedule-section {
     min-width: 100vw;
     min-height: 100vh;
-}
+} */
 
 
 nav {
     display: flex;
     justify-content: space-between;
     border-bottom: 2px solid var(--color-highlight);
+    margin-bottom: 5em;
+}
+
+footer {
+    margin-top: 10em;
+    border-top: 2px solid var(--color-highlight);
+}
+
+.text-highlight {
+    color: var(--color-highlight);
+}
+
+.footer-text {
+    color: var(--color-text);
+    font-family: var(--font-main);
+    font-weight: 400;
 }
 
 :focus {
@@ -225,6 +241,10 @@ button:hover {
 /* CREATE PAGE */
 /* ****************************** */
 
+.meal-form {
+    /* max-height: 70vh;
+    overflow: hidden; */
+}
 
 .panel-title {
     font-weight: 400;
@@ -255,8 +275,6 @@ button:hover {
     padding: .5em 0;
 }
 
-
-
 .panel {
     display: flex;
     align-items: center;
@@ -265,7 +283,7 @@ button:hover {
     font-family: var(--font-main);
     font-size: 1.25rem;
     color:  var(--color-highlight);
-    padding: 2em;
+    padding: 0 2em;
     max-width: 60vw;
     min-width: 30vw;
     margin: auto;
@@ -292,13 +310,29 @@ button:hover {
             /* SCHEDULE PAGE  */
 /* ***************************************** */
 
-.schedule-header {
-    font-family: var(--font-heading);
-    color: var(--color-highlight);
-    font-size: 2em;
-    font-weight: 400;
-    margin: 2.5em 0 1.5em 0;
+.schedule-info {
+    margin: 3em 0 5em 0;
+    color: var(--color-text);
 }
+
+
+.schedule-h1 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 1.85em;
+    margin: 0;
+    margin-bottom: 0.5em;
+}
+
+.schedule-h4 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 1.25em;
+    margin: 0;
+    margin-bottom: 0.5em;
+}
+
+
 
 .schedule-table {
     font-family: var(--font-main);
@@ -323,16 +357,20 @@ button:hover {
     text-align: left;
 }
 
+.justify-right {
+    text-align: right;
+}
+
 
 table {
     display: grid;
     border-collapse: collapse;
     min-width: 100%;
     grid-template-columns: 
-      minmax(150px, 2fr)
-      minmax(150px, 1.67fr)
-      minmax(150px, 1.67fr)
-      minmax(150px, 1.67fr)
+      minmax(200px, 2fr)
+      minmax(100px, 1.67fr)
+      minmax(100px, 1.67fr)
+      minmax(200px, 1.67fr)
       minmax(150px, 1.67fr)
   }
   
@@ -357,11 +395,11 @@ table {
     background: rgb(53, 85, 175);
   }
 
-.schedule-tr{
-    /* display: flex;
+/* .schedule-tr{
+    display: flex;
     justify-content: space-between;
-    align-items: baseline; */
-}
+    align-items: baseline;
+} */
 
 /* .schedule-th {
     padding: 1em;
@@ -429,4 +467,21 @@ table {
     min-height: 100vh;
     min-width: 100vw;
     background-color: rgba(255,255,255, 0.8);
+}
+
+
+/**************************************
+******   JOIN PAGE ********************
+**************************************/
+
+
+.join-err{
+    font-family: var(--font-main);
+    color: var(--color-highlight);
+    font-weight: 400;
+}
+
+.join-input {
+    width: 100px;
+    text-align: center;
 }

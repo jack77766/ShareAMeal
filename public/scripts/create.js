@@ -16,6 +16,12 @@ const mealForm        = document.querySelector('#mealForm');
 
 organizerSubmitButton.addEventListener('click', (e)=> {
     e.preventDefault();
+    let oName = document.querySelector('#organizerName');
+    console.log("The value of name was" , oName.value);
+    if(document.querySelector('#organizerName').value == null) {
+        console.log("No name was entered")
+        alert("Please enter your name")
+    }
     organizerDiv.classList.add('hide');
     organizerDiv.classList.remove('panel');
     recipientDiv.classList.remove('hide');
@@ -39,11 +45,43 @@ addressSubmitButton.addEventListener('click', (e)=> {
 
 scheduleSubmitButton.addEventListener('click', (e)=> {
     e.preventDefault();
-    scheduleDiv.classList.add('hide');
-    scheduleDiv.classList.remove('panel');
-    extrasDiv.classList.remove('hide');
-    console.log("schedule Submit Button Clicked")
+    if(validDates()) {
+        scheduleDiv.classList.add('hide');
+        scheduleDiv.classList.remove('panel');
+        extrasDiv.classList.remove('hide');
+        console.log("schedule Submit Button Clicked")
+    }
+    else {
+        alert("Invalid Dates, please try again.")
+    }
 })
+
+function validDates() {
+    const startDate = document.querySelector('#startDate');
+    const endDate   = document.querySelector('#endDate');
+    let sDate = new Date(startDate.value);
+    let eDate = new Date(endDate.value);
+
+    console.log(`startDate is ${startDate.value} of type: ${typeof startDate.value}`, sDate);
+    console.log(`endDate is ${endDate} of type: ${typeof endDate}`, endDate );
+
+    if(sDate <= eDate)
+        return true;
+    else return false;
+}
+
+function validDOW() {
+    if((document.querySelector('#monday')      == 'on') ||
+       (document.querySelector('#tuesday')     == 'on') ||
+       (document.querySelector('#wednesday')   == 'on') ||
+       (document.querySelector('#thursday')    == 'on') ||
+       (document.querySelector('#friday')      == 'on') ||
+       (document.querySelector('#saturday')    == 'on') ||
+       (document.querySelector('#sunday')      == 'on') )
+    return true;
+
+    else return false;
+}
 
 extrasSubmitButton.addEventListener('click', (e)=> {
     console.log("extras Submit Button Clicked")
@@ -53,7 +91,7 @@ mealForm.addEventListener('submit', (e) => {
     // alert("Form submission attempt");
     e.preventDefault();
     if(!extrasDiv.classList.contains('hide')) {
-        console.log("Submission from withing extras")
+        console.log("Submission from within extras")
         mealForm.submit();
     }
     else {

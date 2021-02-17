@@ -1,30 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create a Meal Schedule</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
-</head>
-<body>
-
-    <nav>
-        <div class="logo">
-            <h1>ShareA<span class='logo-highlight'>Meal</span></h1>
-        </div>
-        <ul class='nav-menu'>
-            <li class='nav-item'><a href="/">Home</a></li>
-            <li class='nav-item'><a href="/create">Create</a></li>
-            <li class='nav-item'><a href="/find">Join</a></li>
-        </ul>
-    </nav>
+<%- include ("./partials/header.ejs") %>
 
 
 <section class='schedule-section' id="scheduleSection" data-schedule_id= <%=planID%> >
 
-    
-    <h1 class='schedule-header'>Meal schedule for: <%= meal.recipient.name %></h1>
-    
+    <div class="schedule-info">
+        <h1 class='schedule-h1'><span class='text-highlight'>
+            Meal schedule for:</span> <%= meal.recipient.name %></h1>
+        <h4 class='schedule-h4'><span class='text-highlight'>
+            Address:</span> <%=meal.address.address%>
+            <%if(meal.address.city) { %>
+            , <%=meal.address.city%>
+            <% } %>
+            <% if(meal.address.state) { %>
+            , <%=meal.address.state%>
+            <% } %>
+        </h4>
+        <h4 class='schedule-h4'><span class='text-highlight'>
+            Organized by:</span> <%=meal.organizer.name%>
+            <% if(meal.organizer.phone) { %>
+                , phone#: <%=meal.organizer.phone%></h4>
+            <% } %>
+        <h4 class='schedule-h4'><span class='text-highlight'>Allergies: </span><%=meal.extras.allergies[0]%></h4>
+        <h4 class='schedule-h4'><span class='text-highlight'>Notes: </span><%=meal.extras.notes%></h4>
+    </div>
+
+
     <table class='schedule-table'>
         <thead>
             <tr class='schedule-tr'>
@@ -47,7 +47,7 @@
                     <td class='schedule-td' id='vphone-<%=index%>'><%=meal.volunteer.phone%></td>
                     <td class='schedule-td' id='vmeal-<%=index%>'><%=meal.volunteer.mealDesc%></td>
                     <% if(meal.taken == true) { %>
-                        <td class='schedule-td'>
+                        <td class='schedule-td justify-right'>
                             <button class='schedule-btn hide' id='volunteerBtn-<%=index%>'
                             data-meal_id='<%= meal._id %>'>Volunteer</button>
             
@@ -55,7 +55,7 @@
                                     data-meal_id='<%= meal._id %>'>Remove</button>
                         </td>
                     <% } else{ %>
-                        <td class='schedule-td'>
+                        <td class='schedule-td justify-right'>
                             <button class='schedule-btn' id='volunteerBtn-<%=index%>'
                             data-meal_id='<%= meal._id %>'>Volunteer</button>
             
@@ -75,16 +75,18 @@
             <h5 class='volunteer-header'>Please enter your details</h5>
             <div class="input-group">
                 <label for="name">name:</label>
-                <input type="text" name="name" id="name">
+                <input type="text" name="name" id="name"
+                        placeholder="So others know who is taking the food">
             </div>
             <div class="input-group">
                 <label for="phone">phone#:</label>
-                <input type="text" name="phone" id="phone">
+                <input type="text" name="phone" id="phone"
+                        placeholder="In case someone wants to reach you (Optional)">
             </div>
             <div class="input-group">
                 <label for="mealDesc">Meal</label>
                 <input type="text" name="mealDesc" id="mealDesc" 
-                        placeholder="What will you be bringing?">
+                        placeholder="What will you be taking?">
             </div>
             <button type="submit">Submit</button>
         
@@ -98,5 +100,6 @@
 
 
 <script src="/scripts/schedule.js"></script>
-</body>
-</html>
+
+
+<%- include ("./partials/footer.ejs") %>

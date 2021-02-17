@@ -8,7 +8,7 @@ app.use('/', express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
 
-
+const mealSchedule = require('./models/mealSchedule');
 
 mongoose.connect('mongodb://localhost/meals', {
   useNewUrlParser: true,
@@ -32,7 +32,26 @@ app.use(scheduleRoutes);
 
 
 app.get('/', (req,res) => {
-    res.sendFile('./public/index.html', { root: __dirname });
+    res.render('index');
+});
+
+app.get('/join', (req,res) => {
+  res.render('join', {err:null});
+})
+
+app.post('/join', (req, res) => {
+  let id = req.body.scheduleID;
+  mealSchedule.findOne({planID: id}, (err,result) => {
+    if(err) console.log("We had a problem looking for the meal schedule.")
+    else {
+      if(result == null) {
+        res.render('join', {err: "Sorry we can't find a schedule with that ID"})
+      }
+      else {
+        res.redirect(`/schedule/${id}`);
+      }
+    }
+  })
 });
 
 

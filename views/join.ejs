@@ -1,0 +1,22 @@
+<%- include ("./partials/header.ejs") %>
+
+
+<div class="splash">
+    <h1 class='splash-title'>
+        <span class='splash-title-highlight'>Hi There!</span>
+        Here you can find a meal schedule and join in to take them a meal!</h1>
+    <div class="splash-option">
+        <h2 class='splash-question'>Type in the ID of the schedule you want to find</h2>
+        <form action="/join" method='POST'>
+            <input type="text" name='scheduleID' class='join-input'>
+            <button type="submit">Find!</button>
+            <% if(err != null) { %>
+                <h5 class='join-err'>Sorry we could not find a schedule with that ID</h5>
+                <h5 class='join-err'>Please try again</h5>
+            <% } %>
+        </form>
+
+    </div>
+</div>
+    
+<%- include ("./partials/footer.ejs") %>

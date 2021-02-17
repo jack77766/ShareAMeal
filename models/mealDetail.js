@@ -18,7 +18,7 @@ const mealDetailSchema = new mongoose.Schema({
         phone: String
     },
     address: {
-        adress: String,
+        address: String,
         city: String,
         state: String
     },
