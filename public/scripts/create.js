@@ -16,43 +16,66 @@ const mealForm        = document.querySelector('#mealForm');
 
 organizerSubmitButton.addEventListener('click', (e)=> {
     e.preventDefault();
-    let oName = document.querySelector('#organizerName');
-    console.log("The value of name was" , oName.value);
-    if(document.querySelector('#organizerName').value == null) {
-        console.log("No name was entered")
-        alert("Please enter your name")
+    let orgName = document.querySelector('#organizerName');
+    let orgEmail = document.querySelector('#organizerEmail');
+    let orgPhone = document.querySelector('#organizerPhone');
+    // console.log("The value of name was" , oName.value);
+    // if(document.querySelector('#organizerName').value == null) {
+    //     console.log("No name was entered")
+    //     alert("Please enter your name")
+    // }
+    
+    orgName.reportValidity();
+    orgEmail.reportValidity();
+    if(orgEmail.checkValidity() && orgName.checkValidity() ) {
+            organizerDiv.classList.add('hide');
+            organizerDiv.classList.remove('panel');
+            recipientDiv.classList.remove('hide');
     }
-    organizerDiv.classList.add('hide');
-    organizerDiv.classList.remove('panel');
-    recipientDiv.classList.remove('hide');
 })
 
 recipientSubmitButton.addEventListener('click', (e)=> {
     e.preventDefault();
-    recipientDiv.classList.add('hide');
-    recipientDiv.classList.remove('panel');
-    addressDiv.classList.remove('hide');
+
+    let rcptName = document.querySelector('#recipientName');
+    rcptName.reportValidity();
+    if(rcptName.checkValidity()) {
+        recipientDiv.classList.add('hide');
+        recipientDiv.classList.remove('panel');
+        addressDiv.classList.remove('hide')
+    }
     console.log("Recipient Submit Button Clicked")
 })
 
 addressSubmitButton.addEventListener('click', (e)=> {
     e.preventDefault();
-    addressDiv.classList.add('hide');
-    addressDiv.classList.remove('panel');
-    scheduleDiv.classList.remove('hide');
+    let address = document.querySelector('#address');
+    let city    = document.querySelector('#city');
+    address.reportValidity();
+    city.reportValidity();
+    if(address.checkValidity() && city.checkValidity() ) {
+        addressDiv.classList.add('hide');
+        addressDiv.classList.remove('panel');
+        scheduleDiv.classList.remove('hide');
+    }
     console.log("address Submit Button Clicked")
 })
 
 scheduleSubmitButton.addEventListener('click', (e)=> {
     e.preventDefault();
-    if(validDates()) {
+    if(validDates() && validDOW() && validMeals() ) {
         scheduleDiv.classList.add('hide');
         scheduleDiv.classList.remove('panel');
         extrasDiv.classList.remove('hide');
         console.log("schedule Submit Button Clicked")
     }
     else {
-        alert("Invalid Dates, please try again.")
+        if(!validDates())
+            alert("Invalid Dates, please try again.")
+        else if(!validDOW()) 
+            alert("Please pick at least one day for meals to be delivered");
+        else if(!validMeals())
+            alert("Please pick at least one meal to be made");
     }
 })
 
@@ -71,13 +94,22 @@ function validDates() {
 }
 
 function validDOW() {
-    if((document.querySelector('#monday')      == 'on') ||
-       (document.querySelector('#tuesday')     == 'on') ||
-       (document.querySelector('#wednesday')   == 'on') ||
-       (document.querySelector('#thursday')    == 'on') ||
-       (document.querySelector('#friday')      == 'on') ||
-       (document.querySelector('#saturday')    == 'on') ||
-       (document.querySelector('#sunday')      == 'on') )
+    if(document.querySelector('#monday').checked     ||
+       document.querySelector('#tuesday').checked    ||
+       document.querySelector('#wednesday').checked  ||
+       document.querySelector('#thursday').checked   ||
+       document.querySelector('#friday').checked     ||
+       document.querySelector('#saturday').checked   ||
+       document.querySelector('#sunday').checked     )
+    return true;
+
+    else return false;
+}
+
+function validMeals() {
+    if((document.querySelector('#breakfast').checked) ||
+       (document.querySelector('#lunch').checked    ) ||
+       (document.querySelector('#dinner').checked   ) )
     return true;
 
     else return false;
