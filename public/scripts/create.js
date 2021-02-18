@@ -68,21 +68,34 @@ addressSubmitButton.addEventListener('click', (e)=> {
 
 scheduleSubmitButton.addEventListener('click', (e)=> {
     e.preventDefault();
-    if(validDates() && validDOW() && validMeals() ) {
+    try {
+        validDates();
+        validDOW();
+        validMeals();
         scheduleDiv.classList.add('hide');
         window.scrollTo(0,0);
         scheduleDiv.classList.remove('panel');
         extrasDiv.classList.remove('hide');
         console.log("schedule Submit Button Clicked")
     }
-    else {
-        if(!validDates())
-            alert("Invalid Dates, please try again.")
-        else if(!validDOW()) 
-            alert("Please pick at least one day for meals to be delivered");
-        else if(!validMeals())
-            alert("Please pick at least one meal to be made");
+    catch(e) {
+        alert(e.message);
     }
+    // if(validDates() && validDOW() && validMeals() ) {
+    //     scheduleDiv.classList.add('hide');
+    //     window.scrollTo(0,0);
+    //     scheduleDiv.classList.remove('panel');
+    //     extrasDiv.classList.remove('hide');
+    //     console.log("schedule Submit Button Clicked")
+    // }
+    // else {
+    //     // if(!validDates())
+    //     //     alert("Invalid Dates, please try again.")
+    //     // else if(!validDOW()) 
+    //     //     alert("Please pick at least one day for meals to be delivered");
+    //     // else if(!validMeals())
+    //     //     alert("Please pick at least one meal to be made");
+    // }
 })
 
 function validDates() {
@@ -90,13 +103,26 @@ function validDates() {
     const endDate   = document.querySelector('#endDate');
     let sDate = new Date(startDate.value);
     let eDate = new Date(endDate.value);
+    let currentDate = new Date();
+    currentDate.setHours(0,0,0,0);
+    let maxDate = new Date(sDate)
+    maxDate.setMonth(sDate.getMonth() + 6);
+    maxDate.setHours(0,0,0,0);
+    // console.log(`Max date is ${maxDate}:${maxDate.value}`)
+    // console.log(`startDate is ${startDate.value} of type: ${typeof startDate.value}`, sDate);
+    // console.log(`endDate is ${endDate.value} of type: ${typeof endDate.value}`, endDate );
+    
+    if(sDate > eDate)
+        throw new Error('Please select an end-date that is after the start-date');
+    else if (sDate < currentDate)
+        throw new Error('Please pick a start-date on or after today');
+    else if(eDate > maxDate) {
+        // console.log(`startdate is: ${sDate}`)
+        // console.log(`Max date is ${maxDate}:${maxDate.value}`)
+        throw new Error('Please change the end-date, schedule cannot be longer than 6 months');
+    }
 
-    console.log(`startDate is ${startDate.value} of type: ${typeof startDate.value}`, sDate);
-    console.log(`endDate is ${endDate} of type: ${typeof endDate}`, endDate );
-
-    if(sDate <= eDate)
-        return true;
-    else return false;
+    else return true;
 }
 
 function validDOW() {
@@ -109,7 +135,7 @@ function validDOW() {
        document.querySelector('#sunday').checked     )
     return true;
 
-    else return false;
+    else throw new Error('Please select at least one day of the week');
 }
 
 function validMeals() {
@@ -118,7 +144,7 @@ function validMeals() {
        (document.querySelector('#dinner').checked   ) )
     return true;
 
-    else return false;
+    else throw new Error('Please select at least one meal');
 }
 
 extrasSubmitButton.addEventListener('click', (e)=> {
