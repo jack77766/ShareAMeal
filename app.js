@@ -2,6 +2,8 @@ const express = require('express');
 const app     = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const {body, validationResult } = require('express-validator');
+
 
 
 app.use('/', express.static(__dirname + '/public'));
@@ -39,8 +41,11 @@ app.get('/join', (req,res) => {
   res.render('join', {err:null});
 })
 
-app.post('/join', (req, res) => {
+app.post('/join', 
+    body('scheduleID').trim().escape(),
+    (req, res) => {
   let id = req.body.scheduleID;
+  console.log(`In Join route user entered scheduleID: ${id}`);
   mealSchedule.findOne({planID: id}, (err,result) => {
     if(err) console.log("We had a problem looking for the meal schedule.")
     else {

@@ -18,7 +18,7 @@ organizerSubmitButton.addEventListener('click', (e)=> {
     e.preventDefault();
     let orgName = document.querySelector('#organizerName');
     let orgEmail = document.querySelector('#organizerEmail');
-    let orgPhone = document.querySelector('#organizerPhone');
+    // let orgPhone = document.querySelector('#organizerPhone');
     // console.log("The value of name was" , oName.value);
     // if(document.querySelector('#organizerName').value == null) {
     //     console.log("No name was entered")
@@ -29,6 +29,7 @@ organizerSubmitButton.addEventListener('click', (e)=> {
     orgEmail.reportValidity();
     if(orgEmail.checkValidity() && orgName.checkValidity() ) {
             organizerDiv.classList.add('hide');
+            window.scrollTo(0,0);
             organizerDiv.classList.remove('panel');
             recipientDiv.classList.remove('hide');
     }
@@ -38,9 +39,12 @@ recipientSubmitButton.addEventListener('click', (e)=> {
     e.preventDefault();
 
     let rcptName = document.querySelector('#recipientName');
+    let rcptEmail = document.querySelector('#recipientEmail');
     rcptName.reportValidity();
-    if(rcptName.checkValidity()) {
+    rcptEmail.reportValidity();
+    if(rcptName.checkValidity() && rcptEmail.checkValidity()) {
         recipientDiv.classList.add('hide');
+        window.scrollTo(0,0);
         recipientDiv.classList.remove('panel');
         addressDiv.classList.remove('hide')
     }
@@ -55,6 +59,7 @@ addressSubmitButton.addEventListener('click', (e)=> {
     city.reportValidity();
     if(address.checkValidity() && city.checkValidity() ) {
         addressDiv.classList.add('hide');
+        window.scrollTo(0,0);
         addressDiv.classList.remove('panel');
         scheduleDiv.classList.remove('hide');
     }
@@ -65,6 +70,7 @@ scheduleSubmitButton.addEventListener('click', (e)=> {
     e.preventDefault();
     if(validDates() && validDOW() && validMeals() ) {
         scheduleDiv.classList.add('hide');
+        window.scrollTo(0,0);
         scheduleDiv.classList.remove('panel');
         extrasDiv.classList.remove('hide');
         console.log("schedule Submit Button Clicked")

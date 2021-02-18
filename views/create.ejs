@@ -5,22 +5,23 @@
         <h1 class=panel-title>Organizer Info</h1>
         <h4 class='panel-desc'>Enter your details to login and manage this meal plan.</h4>
         <div class="input-group">
-            <label for="name">Name</label>
+            <label for="organizerName">Name</label>
             <input type="text" name="organizerName" id='organizerName' required
                     placeholder='Please tell us your name'> 
         </div>
         <div class="input-group">
-            <label for="email">Email</label>
-            <input type="email" name="organizerEmail" id='organizerEmail' required
+            <label for="organizerEmail">Email</label>
+            <input type="text" name="organizerEmail" id='organizerEmail' required
+                   pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Invalid email address"
                                 placeholder="To what e-mail can we send your schedule details">
         </div>
         <div class="input-group">
-            <label for="phone">Phone#</label>
+            <label for="organizerPhone">Phone#</label>
             <input type="tel" name="organizerPhone" id='organizerPhone' 
                     placeholder="Your phone where volunteers can contact you">
         </div>
         <div class="input-group">
-            <label for="Password">Password</label>
+            <label for="organizerPassword">Password</label>
             <input type="password" name="organizerPassword" id='organizerPassword' 
                     placeholder="Please create a password to log into your schedule">
         </div>
@@ -31,18 +32,19 @@
         <h1 class=panel-title>Meal Recipient Info</h1>
         <h4 class='panel-desc'>Who will be receiving these meals? </h4>
         <div class="input-group">
-            <label for="name">Name</label>
+            <label for="recipientName">Name</label>
             <input type="text" name="recipientName" id='recipientName' required
                     placeholder='What is their name?'>    
         </div>
         <div class="input-group">
-            <label for="email">Email</label>
-            <input type="email" name="recipientEmail"
+            <label for="recipientEmail">Email</label>
+            <input type="text" name="recipientEmail" id='recipientEmail'
+                    pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Invalid email address"
                     placeholder='What is their email?'>
         </div>
         <div class="input-group">
-            <label for="phone">Phone #</label>
-            <input type="tel" name="recipientPhone"
+            <label for="recipientPhone">Phone #</label>
+            <input type="tel" name="recipientPhone" id='recipientPhone'
                     placeholder="what is their phone number?">
         </div>
             <button type='submit' id='recipientSubmitButton'>Next</button>
@@ -62,7 +64,7 @@
                     placeholder="What city do they live in?">
         </div>
         <div class="input-group">
-            <label for="state">State</label>
+            <label >State</label>
             <input type="text" name='state'
                     placeholder="What state (leave empty if not applicable)">
         </div>

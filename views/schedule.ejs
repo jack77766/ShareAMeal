@@ -18,10 +18,17 @@
         <h4 class='schedule-h4'><span class='text-highlight'>
             Organized by:</span> <%=meal.organizer.name%>
             <% if(meal.organizer.phone) { %>
-                , phone#: <%=meal.organizer.phone%></h4>
+                , <span class='text-highlight'>phone#:</span> <%=meal.organizer.phone%></h4>
             <% } %>
-        <h4 class='schedule-h4'><span class='text-highlight'>Allergies: </span><%=meal.extras.allergies[0]%></h4>
-        <h4 class='schedule-h4'><span class='text-highlight'>Notes: </span><%=meal.extras.notes%></h4>
+        <% if(meal.extras.allergies) { %>
+            <h4 class='schedule-h4'><span class='text-highlight'>Allergies: </span><%=meal.extras.allergies%></h4>
+        <% } %>
+        <% if(meal.extras.preferences) { %>
+            <h4 class='schedule-h4'><span class='text-highlight'>Preferences: </span><%=meal.extras.preferences%></h4>
+        <% } %>
+        <% if(meal.extras.notes) { %> 
+            <h4 class='schedule-h4'><span class='text-highlight'>Notes: </span><%=meal.extras.notes%></h4>
+        <% } %>
     </div>
 
 

@@ -7,6 +7,7 @@ const { format }    = require('date-fns');
 const { customAlphabet } = require('nanoid');
 const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const nanoid = customAlphabet(alphabet, 10);
+const {body, validationResult } = require('express-validator');
 
 
 router.get('/create', (req, res) => {
@@ -14,28 +15,62 @@ router.get('/create', (req, res) => {
     res.render('create');
 });
 
+function sanitizeCheckBox(val) {
+    console.log(`In sanitizeCheckBox value is ${val}`);
+    if(val === 'on') return true;
+    else return false;
+}
 
-router.post('/create', (req,res) => {
+router.post('/create',[
+    body('organizerName').not().isEmpty().trim().escape(),
+    body('organizerEmail').isEmail().normalizeEmail(),
+    body('organizerPhone').not().isEmpty().trim().escape(),
+    body('organizerPassword').not().isEmpty().trim().escape(),
+    body('recipientName').not().isEmpty().trim().escape(),
+    body('recipientEmail').isEmail().normalizeEmail(),
+    body('recipientPhone').not().isEmpty().trim().escape(),
+    body('address').not().isEmpty().trim().escape(),
+    body('city').not().isEmpty().trim().escape(),
+    body('state').not().isEmpty().trim().escape(),
+    body('startDate').toDate(),
+    body('endDate').toDate(),
+    body('monday').customSanitizer(value => sanitizeCheckBox(value)),
+    body('tuesday').customSanitizer(value => sanitizeCheckBox(value)),
+    body('wednesday').customSanitizer(value => sanitizeCheckBox(value)),
+    body('thursday').customSanitizer(value => sanitizeCheckBox(value)),
+    body('friday').customSanitizer(value => sanitizeCheckBox(value)),
+    body('saturday').customSanitizer(value => sanitizeCheckBox(value)),
+    body('sunday').customSanitizer(value => sanitizeCheckBox(value)),
+    body('breakfast').customSanitizer(value => sanitizeCheckBox(value)),
+    body('lunch').customSanitizer(value => sanitizeCheckBox(value)),
+    body('dinner').customSanitizer(value => sanitizeCheckBox(value)),
+    body('allergies').not().isEmpty().trim().escape(),
+    body('preferences').not().isEmpty().trim().escape(),
+    body('notes').not().isEmpty().trim().escape()
+], (req,res) => {
+    const result = validationResult(req);
+    console.log(result);
+    console.log(`name: ${req.body.organizerName}, email: ${req.body.organizerEmail}, phone: ${req.body.organizerPhone}`)
     console.log("In create post request, req.body: ", req.body);
     const planID = nanoid();  
 
     // CREATE MEAL DETAILS DOCUMENT
 
     const daysOfWeek = [];
-        if(req.body.sunday    == 'on')  daysOfWeek.push(0);
-        if(req.body.monday    == 'on')  daysOfWeek.push(1);
-        if(req.body.tuesday   == 'on')  daysOfWeek.push(2);
-        if(req.body.wednesday == 'on')  daysOfWeek.push(3);
-        if(req.body.thursday  == 'on')  daysOfWeek.push(4);
-        if(req.body.friday    == 'on')  daysOfWeek.push(5);
-        if(req.body.saturday  == 'on')  daysOfWeek.push(6);
+        if(req.body.sunday   )  daysOfWeek.push(0);
+        if(req.body.monday   )  daysOfWeek.push(1);
+        if(req.body.tuesday  )  daysOfWeek.push(2);
+        if(req.body.wednesday)  daysOfWeek.push(3);
+        if(req.body.thursday )  daysOfWeek.push(4);
+        if(req.body.friday   )  daysOfWeek.push(5);
+        if(req.body.saturday )  daysOfWeek.push(6);
     
     // console.log("daysOfWeek array is: ", daysOfWeek);
         
     const meals = [];
-        if(req.body.breakfast  == 'on')  meals.push('breakfast');
-        if(req.body.lunch      == 'on')  meals.push('lunch');
-        if(req.body.dinner     == 'on')  meals.push('dinner');
+        if(req.body.breakfast)  meals.push('breakfast');
+        if(req.body.lunch    )  meals.push('lunch');
+        if(req.body.dinner   )  meals.push('dinner');
         
 
     const mealDetails = new mealDetail({
