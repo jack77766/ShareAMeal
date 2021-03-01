@@ -124,6 +124,10 @@ router.post('/create',[
     mealSchedule.create({
         planID: planID,
         schedule: schedule
+    }, (err, result) => {
+        console.log("Creating mealSchedule");
+        console.log("error is: " + err);
+        console.log("result is: " + result);
     })
 
     // res.send("You created a schedule, the id is: " + planID);

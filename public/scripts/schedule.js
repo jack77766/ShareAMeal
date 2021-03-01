@@ -14,6 +14,7 @@ volunteerBtns.forEach(btn => {
 function volunteerButtonListener(event) {
     let btn = event.target;
     showVolunteerDiv(btn);
+    window.scrollTo(0,0);
     console.log(`target's dataset is: `, event.target.dataset.meal_id);
     mealID.value = event.target.dataset.meal_id;
     document.addEventListener('click', e=> {

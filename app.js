@@ -3,7 +3,7 @@ const app     = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const {body, validationResult } = require('express-validator');
-
+require('dotenv').config()
 
 
 app.use('/', express.static(__dirname + '/public'));
@@ -12,18 +12,51 @@ app.set('view engine', 'ejs');
 
 const mealSchedule = require('./models/mealSchedule');
 
-mongoose.connect('mongodb://localhost/meals', {
+
+const DB_LOCAL = 'mongodb://localhost/meals';
+const DB_URI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+  console.log(`DB_URI: ${DB_URI}`);
+
+mongoose.connect(DB_URI, 
+{
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
   useCreateIndex: true
-});
+}).catch(err =>  {
+  console.log(err);
+  console.log("Go to local???");
+})
 
 const db = mongoose.connection;
+
+db.on('error', err => {
+  console.log("In new error on db 'error' ");
+  console.log(err);
+});
+
+db.on('disconnected', err => {
+  console.log("We have a disconnection error");
+  console.log(err);
+})
+
 db.on('error', console.error.bind(console, 'connection error:'));
 // db.once('open', function() {
 //    we're connected!
 // });
+
+
+
+
+// const MongoClient = require('mongodb').MongoClient;
+// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}?retryWrites=true&w=majority`;
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
+//   // perform actions on the collection object
+//   client.close();
+// });
+
 
 
 const createRoutes = require('./routes/create');
