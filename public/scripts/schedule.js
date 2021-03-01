@@ -63,7 +63,7 @@ function removeVolunteer(mealID, row) {
     let scheduleSection = document.querySelector('#scheduleSection');
     let scheduleID = scheduleSection.dataset.schedule_id;
     // console.log(`schedule-id from data-attr is: ${scheduleID}`)
-    let url = `http://localhost:3000/schedule/${scheduleID}/${mealID}`
+    let url = `/schedule/${scheduleID}/${mealID}`
     let xhr = new XMLHttpRequest();
     xhr.open('DELETE', url, true);
     xhr.onload = function () {
