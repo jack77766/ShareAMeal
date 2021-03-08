@@ -293,6 +293,36 @@ button:hover {
     padding: 2em 0;
 } 
 
+.dow-input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.dow-panel {
+    display: flex;
+    flex-direction: row;
+}
+
+.dow-label {
+    min-width: 0;
+    text-align: center;
+}
+
+.dow-input {
+    min-width: 0;
+    width: 4rem;
+}
+
+.meal-input-group {
+    display: flex;
+    align-items: center;
+}
+
+.meal-input {
+    min-width: 0;
+    width: 4rem;
+}
+
 .extras-ta {
     font-family: var(--font-main);
     color: var(--color-text-gray);
